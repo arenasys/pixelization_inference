@@ -68,7 +68,10 @@ def save(tensor, file):
     img = tensor.data[0].cpu().float().numpy()
     img = (np.transpose(img, (1, 2, 0)) + 1) / 2.0 * 255.0
     img = img.astype(np.uint8)
-    Image.fromarray(img).save(file)
+    img = Image.fromarray(img)
+    img = img.resize((img.size[0]//4, img.size[1]//4), resample=Image.Resampling.NEAREST)
+    img = img.resize((img.size[0]*4, img.size[1]*4), resample=Image.Resampling.NEAREST)
+    img.save(file)
 
 
 def pixelize_cli():
