@@ -24,10 +24,10 @@ def handle_uploads():
   subprocess.run(['python', 'pixelization.py', '--input', 'unprocessed', '--output', 'outputs'])
   
   # debug
-  for file in os.listdir(unprocessed_dir):
-    old_file = os.path.join(unprocessed_dir, file)
-    new_file = os.path.join(outputs_dir, file)
-    shutil.copy(old_file, new_file)
+  # for file in os.listdir(unprocessed_dir):
+  #  old_file = os.path.join(unprocessed_dir, file)
+  #  new_file = os.path.join(outputs_dir, file)
+  #  shutil.copy(old_file, new_file)
     
   for file in os.listdir(unprocessed_dir):
     old_file = os.path.join(unprocessed_dir, file)
