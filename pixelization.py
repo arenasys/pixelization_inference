@@ -1,4 +1,6 @@
 #!/usr/bin/python
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 import torch
 import torchvision.transforms as transforms
@@ -8,7 +10,7 @@ from models.networks import define_G
 import glob
 
 class Model():
-    def __init__(self, device="cuda"):
+    def __init__(self, device="cpu"):
         self.device = torch.device(device)
         self.G_A_net = None
         self.alias_net = None
