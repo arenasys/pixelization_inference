@@ -13,7 +13,7 @@ os.makedirs(outputs_dir, exist_ok=True)
 
 def handle_uploads():  
   import subprocess
-  result = subprocess.run(['python', 'pixelization.py', '--input', '.', '--output', 'outputs'])
+  result = subprocess.run(['python', 'pixelization.py', '--input', working_dir, '--output', outputs_dir])
   if result.returncode != 0:
     print('Error processing images')
     return
