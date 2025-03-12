@@ -4,26 +4,19 @@ import uploadserver
 import shutil
 
 working_dir = 'working'
-unprocessed_dir = os.path.join(working_dir, 'unprocessed')
-processed_dir = os.path.join(working_dir, 'processed')
+inputs_dir = os.path.join(working_dir, 'inputs')
 outputs_dir = os.path.join(working_dir, 'outputs')
 
 os.makedirs(working_dir, exist_ok=True)
-os.makedirs(unprocessed_dir, exist_ok=True)
-os.makedirs(processed_dir, exist_ok=True)
+os.makedirs(inputs_dir, exist_ok=True)
 os.makedirs(outputs_dir, exist_ok=True)
 
-def handle_uploads():
-  for file in os.listdir(working_dir):
-    old_file = os.path.join(working_dir, file)
-    if not os.path.isfile(old_file): continue
-    new_file = os.path.join(unprocessed_dir, file)
-    os.rename(old_file, new_file)
-  
+def handle_uploads():  
   import subprocess
-  result = subprocess.run(['python', 'pixelization.py', '--input', 'unprocessed', '--output', 'outputs'])
+  result = subprocess.run(['python', 'pixelization.py', '--input', '.', '--output', 'outputs'])
   if result.returncode != 0:
     print('Error processing images')
+    return
   else:
     print('Images processed')
   
@@ -33,9 +26,11 @@ def handle_uploads():
   #  new_file = os.path.join(outputs_dir, file)
   #  shutil.copy(old_file, new_file)
     
-  for file in os.listdir(unprocessed_dir):
-    old_file = os.path.join(unprocessed_dir, file)
-    new_file = os.path.join(processed_dir, file)
+  for file in os.listdir(working_dir):
+    old_file = os.path.join(working_dir, file)
+    if not os.path.isfile(old_file):
+      continue
+    new_file = os.path.join(inputs_dir, file)
     os.rename(old_file, new_file)
 
 class Args:
