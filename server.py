@@ -21,7 +21,11 @@ def handle_uploads():
     os.rename(old_file, new_file)
   
   import subprocess
-  subprocess.run(['python', 'pixelization.py', '--input', 'unprocessed', '--output', 'outputs'])
+  result = subprocess.run(['python', 'pixelization.py', '--input', 'unprocessed', '--output', 'outputs'])
+  if result.returncode != 0:
+    print('Error processing images')
+  else:
+    print('Images processed')
   
   # debug
   # for file in os.listdir(unprocessed_dir):
